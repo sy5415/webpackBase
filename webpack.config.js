@@ -53,7 +53,6 @@ module.exports = {
       }
   ),new VueLoaderPlugin()],
   //开发服务器配置
-
   devServer: {
     // static: {
     //   directory: path.join(__dirname, 'public'),
@@ -63,11 +62,12 @@ module.exports = {
     open: true, // 自动打开浏览器
     
   },
-   // 引入模块的解析
+   // 引入模块的解析 模块路径 路径别名
    resolve: {
     extensions: ['.js', '.vue', '.json'], // 可以省略的后缀名
     alias: { // 路径别名(简写方式)
       'vue$': 'vue/dist/vue.esm.js',  // 表示精准匹配 from 'vue'
+      '@':path.resolve(__dirname,'src') //设置使用直接回到根目录下的src目录下
     }
   },
 };
