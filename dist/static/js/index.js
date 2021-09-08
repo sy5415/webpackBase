@@ -1,0 +1,1 @@
+console.log("hello"),document.getElementById("root").innerHTML="<h1>666666664446<h1>";
