@@ -1,4 +1,5 @@
 const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');[]
 module.exports = {
   entry: './src/index.js',
@@ -22,7 +23,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'], // 多个loader从右到左处理
+        use: ['vue-style-loader', 'css-loader',], // 多个loader从右到左处理
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -31,6 +32,15 @@ module.exports = {
           limit: 1000,
           name: 'static/img/[name].[hash:7].[ext]' // 相对于output.path
         }
+      },
+      {
+        test: /\.vue$/,
+        include: path.resolve(__dirname, 'src'),
+        loader: 'vue-loader'
+      },
+      {
+        test: /\.css$/,
+        use: ['vue-style-loader', 'css-loader'],
       }
     ],
   },
@@ -41,18 +51,23 @@ module.exports = {
         filename: 'index.html',//生成页面（在output指定的path下）
         template:'index.html',//在根目录下查找作为模板页面
       }
-  )],
+  ),new VueLoaderPlugin()],
   //开发服务器配置
-  devServer: {
-    
-  },
+
   devServer: {
     // static: {
     //   directory: path.join(__dirname, 'public'),
     // },
     compress: true,
-    port: 9000,
+    port:8000,
     open: true, // 自动打开浏览器
     
+  },
+   // 引入模块的解析
+   resolve: {
+    extensions: ['.js', '.vue', '.json'], // 可以省略的后缀名
+    alias: { // 路径别名(简写方式)
+      'vue$': 'vue/dist/vue.esm.js',  // 表示精准匹配 from 'vue'
+    }
   },
 };

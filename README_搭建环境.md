@@ -143,7 +143,7 @@
     
     2). 配置
         const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
+        //添加到模块加载器module
         {
           test: /\.vue$/,
           include: path.resolve(__dirname, 'src'),
@@ -154,9 +154,8 @@
           test: /\.css$/,
           use: ['vue-style-loader', 'css-loader'],
         }
-
+        //这个引入到插件plugins
         new VueLoaderPlugin()
-
         // 引入模块的解析
         resolve: {
           extensions: ['.js', '.vue', '.json'], // 可以省略的后缀名
@@ -168,4 +167,7 @@
     3). 编码: 
         src/App.vue
         src/index.js
+  @@@@@@@@@@@
+  Search node_modules下载查看依赖包的插件
+  
         
