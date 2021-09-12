@@ -10,6 +10,17 @@ module.exports = {
   //模块加载器
   module: {
     rules: [
+//       {
+//         test: /\.js$/,
+//         exclude: /node_modules/,
+//         include: path.resolve(__dirname, 'src'),
+//         use: {
+//           loader: 'babel-loader',
+//           options: {
+//             presets: ['@babel/preset-env']
+//           }
+//         }
+//       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -17,7 +28,19 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets:[
+              [
+                '@babel/preset-env',{useBuiltIns:'usage','corejs':2} //配置async/await的编译环境这里需要安装yarn add @babel/runtime-corejs2
+              ]
+              ],
+            plugins: [
+              ["babel-plugin-component",
+              {
+                "libraryName": "mint-ui",
+                "style": true
+              }
+            ]
+          ]
           }
         }
       },
@@ -38,10 +61,7 @@ module.exports = {
         include: path.resolve(__dirname, 'src'),
         loader: 'vue-loader'
       },
-      {
-        test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader'],
-      }
+      
     ],
   },
   //插件
